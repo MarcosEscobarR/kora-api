@@ -13,6 +13,8 @@ export class Provider {
   Id: number;
   @Column('varchar')
   Dni: string;
+  @Column('decimal')
+  Rating: number;
   @OneToOne(() => User)
   @JoinColumn()
   User: User;

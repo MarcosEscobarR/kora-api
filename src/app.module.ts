@@ -8,24 +8,38 @@ import { CompanyModule } from './company/company.module';
 import { ProviderModule } from './provider/provider.module';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
+import { OrderModule } from './order/order.module';
+import { CommentModule } from './comment/comment.module';
+import { PromotionModule } from './promotion/promotion.module';
+import { User } from './user/entities/user.entity';
+import { Provider } from './provider/entities/provider.entity';
+import { Promotion } from './promotion/entities/promotion.entity';
+import { PromotionProduct } from './promotion/entities/promotionProduct.entity';
+import { Product } from './product/entities/product.entity';
+import { Order } from './order/entities/order.entity';
+import { OrderProduct } from './order/entities/orderProduct';
+import { Company } from './company/entities/company.entity';
+import { FavoriteProviders } from './company/entities/favoriteProviders.entity';
+import { Comment } from './comment/entities/comment.entity';
+import { Category } from './category/entities/category.entity';
+import { CategoryProduct } from './category/entities/categoryProduct';
+import ormconfig from './ormconfig';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mssql',
-      host: 'localhost',
-      port: 1433,
-      username: 'sa',
-      password: 'Root1!',
-      database: 'kora',
-      entities: [],
-      synchronize: true,
+      ...ormconfig,
+      keepConnectionAlive: true,
+      autoLoadEntities: true,
     }),
     UserModule,
     CompanyModule,
     ProviderModule,
     ProductModule,
     CategoryModule,
+    OrderModule,
+    CommentModule,
+    PromotionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
