@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Provider } from '../../provider/entities/provider.entity';
-import { CategoryProduct } from './categoryProduct';
+import { CategoryProductEntity } from './categoryProduct.entity';
 
 @Entity()
 export class Category {
@@ -18,6 +18,6 @@ export class Category {
   @OneToOne(() => Provider)
   @JoinColumn()
   Provider: Provider;
-  @OneToMany(() => CategoryProduct, (product) => product.Product)
-  Products: CategoryProduct[];
+  @OneToMany(() => CategoryProductEntity, (product) => product.Product)
+  Products: CategoryProductEntity[];
 }

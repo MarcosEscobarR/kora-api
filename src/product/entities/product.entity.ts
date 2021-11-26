@@ -14,9 +14,9 @@ export class Product {
   Id: number;
   @Column('varchar')
   name: string;
-  @Column('enum')
+  @Column('simple-enum')
   MeasurementUnits: MeasurementUnits;
-  @Column('int64')
+  @Column('integer')
   Quantity: number;
   @OneToOne(() => Provider)
   @JoinColumn()

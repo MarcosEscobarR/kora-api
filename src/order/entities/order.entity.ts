@@ -8,7 +8,7 @@ import {
 import { Company } from '../../company/entities/company.entity';
 import { Product } from '../../product/entities/product.entity';
 import { OrderStatus } from '../../commonds/Constants';
-import { OrderProduct } from './orderProduct';
+import { OrderProductEntity } from './orderProduct.entity';
 
 @Entity()
 export class Order {
@@ -18,8 +18,8 @@ export class Order {
   Company: Company;
   @ManyToOne(() => Product)
   Product: Product;
-  @Column('enum')
+  @Column('simple-enum')
   Status: OrderStatus;
-  @OneToMany(() => OrderProduct, (p) => p.Order)
-  OrderProducts: OrderProduct[];
+  @OneToMany(() => OrderProductEntity, (p) => p.Order)
+  OrderProducts: OrderProductEntity[];
 }

@@ -3,7 +3,7 @@ import { Category } from './category.entity';
 import { Product } from '../../product/entities/product.entity';
 
 @Entity()
-export class CategoryProduct {
+export class CategoryProductEntity {
   @PrimaryGeneratedColumn()
   Id: number;
   @OneToOne(() => Category)

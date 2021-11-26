@@ -3,13 +3,13 @@ import { Order } from './order.entity';
 import { Product } from '../../product/entities/product.entity';
 
 @Entity()
-export class OrderProduct {
+export class OrderProductEntity {
   @PrimaryGeneratedColumn()
   Id: number;
   @ManyToOne(() => Order, (o) => o.OrderProducts)
   Order: Order;
   @ManyToOne(() => Product)
   Product: Product;
-  @Column('int64')
+  @Column('integer')
   Quantity: number;
 }

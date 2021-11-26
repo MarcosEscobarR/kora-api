@@ -17,12 +17,12 @@ import { Promotion } from './promotion/entities/promotion.entity';
 import { PromotionProduct } from './promotion/entities/promotionProduct.entity';
 import { Product } from './product/entities/product.entity';
 import { Order } from './order/entities/order.entity';
-import { OrderProduct } from './order/entities/orderProduct';
+import { OrderProductEntity } from './order/entities/orderProduct.entity';
 import { Company } from './company/entities/company.entity';
 import { FavoriteProviders } from './company/entities/favoriteProviders.entity';
 import { Comment } from './comment/entities/comment.entity';
 import { Category } from './category/entities/category.entity';
-import { CategoryProduct } from './category/entities/categoryProduct';
+import { CategoryProductEntity } from './category/entities/categoryProduct.entity';
 import ormconfig from './ormconfig';
 
 @Module({
