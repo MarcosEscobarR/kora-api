@@ -8,3 +8,9 @@ export enum MeasurementUnits {
   Kilo,
   Unidad,
 }
+
+export enum UserRoles {
+  Admin,
+  Company,
+  Provider
+}

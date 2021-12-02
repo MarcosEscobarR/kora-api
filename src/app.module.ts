@@ -23,6 +23,7 @@ import { FavoriteProviders } from './company/entities/favoriteProviders.entity';
 import { Comment } from './comment/entities/comment.entity';
 import { Category } from './category/entities/category.entity';
 import { CategoryProductEntity } from './category/entities/categoryProduct.entity';
+import { AuthModule } from './auth/auth.module';
 import ormconfig from './ormconfig';
 
 @Module({
@@ -40,6 +41,7 @@ import ormconfig from './ormconfig';
     OrderModule,
     CommentModule,
     PromotionModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
