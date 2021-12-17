@@ -11,18 +11,6 @@ import { CategoryModule } from './category/category.module';
 import { OrderModule } from './order/order.module';
 import { CommentModule } from './comment/comment.module';
 import { PromotionModule } from './promotion/promotion.module';
-import { User } from './user/entities/user.entity';
-import { Provider } from './provider/entities/provider.entity';
-import { Promotion } from './promotion/entities/promotion.entity';
-import { PromotionProduct } from './promotion/entities/promotionProduct.entity';
-import { Product } from './product/entities/product.entity';
-import { Order } from './order/entities/order.entity';
-import { OrderProductEntity } from './order/entities/orderProduct.entity';
-import { Company } from './company/entities/company.entity';
-import { FavoriteProviders } from './company/entities/favoriteProviders.entity';
-import { Comment } from './comment/entities/comment.entity';
-import { Category } from './category/entities/category.entity';
-import { CategoryProductEntity } from './category/entities/categoryProduct.entity';
 import { AuthModule } from './auth/auth.module';
 import ormconfig from './ormconfig';
 

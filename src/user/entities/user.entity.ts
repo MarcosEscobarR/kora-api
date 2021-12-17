@@ -4,12 +4,18 @@ import {UserRoles} from "../../commonds/Constants";
 
 @Entity()
 export class User {
+  constructor(name: string, email: string, password: string, phone: string, role: UserRoles ) {
+    this.Name = name;
+    this.Email = email;
+    this.Password = password;
+    this.Phone = phone;
+    this.Role = role;
+  }
+  
   @PrimaryGeneratedColumn()
   Id: number;
   @Column('varchar')
   Name: string;
-  @Column('varchar')
-  LastName: string;
   @Column('varchar')
   Password: string;
   @Column('varchar')

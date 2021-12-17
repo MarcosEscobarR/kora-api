@@ -1,6 +1,6 @@
 import {
   Column,
-  Entity,
+  Entity, IsNull,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -13,8 +13,8 @@ export class Provider {
   Id: number;
   @Column('varchar')
   Dni: string;
-  @Column('decimal')
-  Rating: number;
+  @Column('decimal', {nullable: true})
+  Rating: number = 0;
   @OneToOne(() => User)
   @JoinColumn()
   User: User;

@@ -8,9 +8,10 @@ import {Repository} from "typeorm";
 @Injectable()
 export class UserService {
   
-  constructor(@InjectRepository(User) private UserRepository: Repository<User>) {}
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    console.log(createUserDto)
+    return await this.userRepository.save(createUserDto);
   }
 
   findAll() {
@@ -21,8 +22,9 @@ export class UserService {
     return `This action returns a #${id} user`;
   } 
   findByEmail(email: string) {
-    return this.UserRepository.findOne({Email: email});
+    return this.userRepository.findOne(email);
   }
+  
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;

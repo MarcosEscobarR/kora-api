@@ -1,5 +1,5 @@
 import { ConnectionOptions } from 'typeorm';
-
+require("dotenv").config();
 const config: ConnectionOptions = {
   type: 'mssql',
   host: process.env.DB_HOST,
@@ -19,5 +19,6 @@ const config: ConnectionOptions = {
     encrypt: false,
   },
 };
+
 
 export default config;

@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
+import {Injectable} from '@nestjs/common';
+import {CreateCompanyDto} from './dto/create-company.dto';
+import {UpdateCompanyDto} from './dto/update-company.dto';
+import {InjectRepository} from "@nestjs/typeorm";
+import {Company} from "./entities/company.entity";
+import {Repository} from "typeorm";
+import {UserService} from "../user/user.service";
+import {CreateUserDto} from "../user/dto/create-user.dto";
+import {UserRoles} from "../commonds/Constants";
+
 
 @Injectable()
 export class CompanyService {
-  create(createCompanyDto: CreateCompanyDto) {
-    return 'This action adds a new company';
-  }
+    constructor(
+        @InjectRepository(Company) private readonly companyRepository: Repository<Company>,
+        private readonly userService: UserService
+    ) {}
 
-  findAll() {
-    return `This action returns all company`;
-  }
+    async create(createCompanyDto: CreateCompanyDto) {
+        const newUserData = new CreateUserDto(createCompanyDto.name, createCompanyDto.email, createCompanyDto.password, createCompanyDto.phone, UserRoles.Company)
+        const newUser = await this.userService.create(newUserData)
+        createCompanyDto.userId = newUser.Id;
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
-  }
+        return await this.companyRepository.save(createCompanyDto)
+    }
 
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
-  }
+    findAll() {
+        return this.companyRepository.find();
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
-  }
+    findOne(id: number) {
+        return this.companyRepository.findOne(id);
+    }
+
+    update(id: number, updateCompanyDto: UpdateCompanyDto) {
+        // return this.companyRepository.Update(id, updateCompanyDto);
+    }
+
+    remove(id: number) {
+        return this.companyRepository.delete(id)
+    }
 }
