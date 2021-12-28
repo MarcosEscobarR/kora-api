@@ -7,6 +7,7 @@ import {Repository} from "typeorm";
 import {UserService} from "../user/user.service";
 import {CreateUserDto} from "../user/dto/create-user.dto";
 import {UserRoles} from "../commonds/Constants";
+import {User} from "../user/entities/user.entity";
 
 
 @Injectable()
@@ -17,7 +18,8 @@ export class CompanyService {
     ) {}
 
     async create(createCompanyDto: CreateCompanyDto) {
-        const newUserData = new CreateUserDto(createCompanyDto.name, createCompanyDto.email, createCompanyDto.password, createCompanyDto.phone, UserRoles.Company)
+        const password = await User.hashPassword(createCompanyDto.password)
+        const newUserData = new CreateUserDto(createCompanyDto.name, createCompanyDto.email, password, createCompanyDto.phone, UserRoles.Company)
         const newUser = await this.userService.create(newUserData)
         createCompanyDto.userId = newUser.Id;
 

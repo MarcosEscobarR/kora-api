@@ -5,6 +5,7 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {UserService} from "../user/user.service";
 import {JwtModule} from "@nestjs/jwt";
 import {UserModule} from "../user/user.module";
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import {UserModule} from "../user/user.module";
     signOptions: { expiresIn: '60s' },
   })],
   providers: [AuthService, UserService],
-  exports: [AuthService]
+  exports: [AuthService],
+  controllers: [AuthController]
 })
 export class AuthModule {
 }

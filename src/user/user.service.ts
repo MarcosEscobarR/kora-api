@@ -10,7 +10,6 @@ export class UserService {
   
   constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
   async create(createUserDto: CreateUserDto): Promise<User> {
-    console.log(createUserDto)
     return await this.userRepository.save(createUserDto);
   }
 
@@ -18,11 +17,11 @@ export class UserService {
     return `This action returns all user`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: number): Promise<User>{
+    return this.userRepository.findOne(id)
   } 
   findByEmail(email: string) {
-    return this.userRepository.findOne(email);
+    return this.userRepository.findOne({Email: email});
   }
   
 
