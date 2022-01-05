@@ -8,8 +8,7 @@ import {ProviderService} from "../provider/provider.service";
 import {MeasurementUnits} from "../commonds/Constants";
 import {GetProductDto} from "./dto/get-product.dto";
 import {CurrentUserService} from "../commonds/current-user/current-user.service";
-import {User} from "../user/entities/user.entity";
-
+import {Result} from "../shared/Result";
 
 @Injectable()
 export class ProductService {
@@ -26,11 +25,11 @@ export class ProductService {
 
   async findAll(skip: number, take: number) : Promise<GetProductDto[]>{
     const currentUser = await this.currentUserService.getCurrentUser();
-    const providerId =  await this.providerService.findByUser(currentUser)
+    const {Id} =  await this.providerService.findByUser(currentUser)
     
     const result = await this.productRepository
         .createQueryBuilder("provider")
-        .where("provider.providerId = :providerId", {providerId: providerId})
+        .where("provider.providerId = :providerId", {providerId: Id})
         .skip(skip * take)
         .take(take)
         .getMany();

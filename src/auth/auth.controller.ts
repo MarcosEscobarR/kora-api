@@ -9,9 +9,10 @@ import {LocalStrategy} from "./local.strategy";
 import {JwtGard} from "./jwt.gard";
 import {CurrentUserService} from "../commonds/current-user/current-user.service";
 import {MeModel} from "./models/meModel";
+import {ApiTags} from "@nestjs/swagger";
 
-
-@Controller('auth')
+@ApiTags('auth')
+@Controller('api/auth')
 export class AuthController {
     constructor(@InjectRepository(User) private readonly userRepository: Repository<User>,
                 private readonly authService: AuthService,
@@ -20,7 +21,7 @@ export class AuthController {
     ) {
     }
 
-    @Post()
+    @Post('login')
     async SingIn(@Body() signInDto: SingInDto) {
         const user = await this.userRepository.findOne({Email: signInDto.username})
         if (!user) return HttpStatus.NOT_FOUND;

@@ -1,10 +1,11 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, UseGuards} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ParseIntPipe} from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import passport from "passport";
 import {JwtGard} from "../auth/jwt.gard";
+import {PARAMTYPES_METADATA} from "@nestjs/common/constants";
 
 @ApiTags('product')
 @Controller('api/product')
@@ -21,7 +22,7 @@ export class ProductController {
   @ApiBearerAuth()
   @UseGuards(JwtGard)
   @Get()
-  findAll(@Param() skip: number = 0, @Param() take: number = 10) {
+  findAll(@Param('skip') skip: number = 0, @Param('take') take: number = 10) {
     return this.productService.findAll(skip, take);
   }
   
