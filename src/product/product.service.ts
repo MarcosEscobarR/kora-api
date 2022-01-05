@@ -24,8 +24,7 @@ export class ProductService {
   }
 
   async findAll(skip: number, take: number) : Promise<GetProductDto[]>{
-    const currentUser = await this.currentUserService.getCurrentUser();
-    const {Id} =  await this.providerService.findByUser(currentUser)
+    const {Id} = await this.currentUserService.getCurrentProvider();
     
     const result = await this.productRepository
         .createQueryBuilder("provider")

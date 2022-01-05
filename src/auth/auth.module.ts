@@ -9,12 +9,14 @@ import {PassportModule} from "@nestjs/passport";
 import {JwtStrategy} from "./jwt.strategy";
 import {LocalStrategy} from "./local.strategy";
 import {CurrentUserService} from "../commonds/current-user/current-user.service";
+import {CurrentUserModule} from "../commonds/current-user/current-user.module";
 
 
 
 @Module({
     imports: [
         UserModule,
+        CurrentUserModule,
         CacheModule.register(),
         TypeOrmModule.forFeature([User]),
         PassportModule.register({defaultStrategy:'jwt'}),
@@ -22,7 +24,7 @@ import {CurrentUserService} from "../commonds/current-user/current-user.service"
             secret: process.env.ACCESS_SECRET,
             signOptions: {expiresIn: '5m'},
         })],
-    providers: [AuthService,JwtStrategy, LocalStrategy, CurrentUserService],
+    providers: [AuthService,JwtStrategy, LocalStrategy],
     exports: [AuthService],
     controllers: [AuthController]
 })

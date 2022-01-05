@@ -33,6 +33,7 @@ export class ProviderService {
   async findByUser(user: User): Promise<Provider> {
     return await this.providerRepository.findOne({User: user})
   }
+  
   async update(id: number, updateProviderDto: UpdateProviderDto) {
     let provider = await this.providerRepository.findOne(id)
     provider = {...provider, ...updateProviderDto};

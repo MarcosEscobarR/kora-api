@@ -4,6 +4,10 @@ import { Provider } from '../../provider/entities/provider.entity';
 
 @Entity()
 export class FavoriteProviders {
+  constructor(company: Company, provider: Provider) {
+    this.Company = company;
+    this.Provider = provider;
+  }
   @PrimaryGeneratedColumn()
   Id: number;
   @ManyToOne(() => Company)
