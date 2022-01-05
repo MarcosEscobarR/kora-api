@@ -1,4 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
+import {User} from "../../user/entities/user.entity";
 
 export class CreateCompanyDto {
     @ApiProperty()
@@ -11,5 +12,5 @@ export class CreateCompanyDto {
     Ruc: string;
     @ApiProperty()
     password: string;
-    userId: number;
+    user: User;
 }

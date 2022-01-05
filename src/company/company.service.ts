@@ -17,20 +17,20 @@ export class CompanyService {
         private readonly userService: UserService
     ) {}
 
-    async create(createCompanyDto: CreateCompanyDto) {
+    async create(createCompanyDto: CreateCompanyDto): Promise<any> {
         const password = await User.hashPassword(createCompanyDto.password)
         const newUserData = new CreateUserDto(createCompanyDto.name, createCompanyDto.email, password, createCompanyDto.phone, UserRoles.Company)
-        const newUser = await this.userService.create(newUserData)
-        createCompanyDto.userId = newUser.Id;
-
-        return await this.companyRepository.save(createCompanyDto)
+        createCompanyDto.user = await this.userService.create(newUserData);
+        
+        const company: Company = new Company(createCompanyDto.user, createCompanyDto.Ruc)
+        return await this.companyRepository.save(company)
     }
 
     findAll() {
         return this.companyRepository.find();
     }
 
-    findOne(id: number) {
+    findOne(id: number): Promise<Company> {
         return this.companyRepository.findOne(id);
     }
 

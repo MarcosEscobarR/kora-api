@@ -9,6 +9,11 @@ import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Provider {
+  constructor(dni: string, user: User) {
+    this.Dni = dni;
+    this.User = user;
+  }
+  
   @PrimaryGeneratedColumn()
   Id: number;
   @Column('varchar')

@@ -3,21 +3,20 @@ import {UserService} from "../user/user.service";
 import {JwtService} from "@nestjs/jwt";
 import {JwtPayload} from "./models/JwtPayload";
 import {User} from "../user/entities/user.entity";
-import {log} from "util";
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
     constructor(private UserService: UserService, private JwtService: JwtService) {}
     
-    async validateUser(email: string, pass: string): Promise<boolean>{
+    
+    async validateUser(email: string, pass: string): Promise<User>{
        try {
            const user = await this.UserService.findByEmail(email);
            await user.validatePassword(pass)
-           return true;
+           return user;
        } catch (e) {
            console.log(e)
-           return false;
+           return null;
        }
     }
     
@@ -26,12 +25,12 @@ export class AuthService {
         return this.generateTokens(user);
     }
     
-    async validateRefreshToken(token: string) {
+    async validateRefreshToken(token: string): Promise<any> {
          try {
-             const tokenDecoded = this.JwtService.decode(token);
+             const tokenDecoded = this.JwtService.decode(token) as any;
              
              await this.JwtService.verify(token, {secret: process.env.REFRESH_SECRET, subject: tokenDecoded.sub})
-             const user = await this.UserService.findOne(19);
+             const user = await this.UserService.findOne(Number(tokenDecoded.sub));
              return this.generateTokens(user);
          } catch (e) {
              console.log(e)
@@ -46,7 +45,7 @@ export class AuthService {
         
         return {
             access_token: this.JwtService.sign(payload, {privateKey: process.env.ACCESS_SECRET, subject: user.Id.toString(), expiresIn: '5m',}),
-            refresh_token: this.JwtService.sign({subject: user.Id.toString(),},{secret: process.env.REFRESH_SECRET, expiresIn: '5m'})
+            refresh_token: this.JwtService.sign({},{secret: process.env.REFRESH_SECRET, expiresIn: '30d', subject: user.Id.toString()})
         }
     }
     
