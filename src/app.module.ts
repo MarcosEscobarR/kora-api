@@ -13,7 +13,6 @@ import { CommentModule } from './comment/comment.module';
 import { PromotionModule } from './promotion/promotion.module';
 import { AuthModule } from './auth/auth.module';
 import ormconfig from './ormconfig';
-import { CurrentUserService } from './commonds/current-user/current-user.service';
 import { CurrentUserModule } from './commonds/current-user/current-user.module';
 
 @Module({
